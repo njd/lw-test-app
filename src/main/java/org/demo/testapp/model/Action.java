@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -15,8 +16,11 @@ import java.time.LocalDateTime;
 public class Action {
     @Id
     @Column(name = "entity_id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long entityId;
+
+    @Column(name = "id", nullable = false)
+    private UUID id;
 
     @Size(max = 255)
     @NotNull
@@ -42,6 +46,7 @@ public class Action {
     @JoinColumn(name = "patient_entity_id", nullable = false)
     private Patient patientEntity;
 
+    @Version
     @NotNull
     @Column(name = "entity_version", nullable = false)
     private Long entityVersion;
