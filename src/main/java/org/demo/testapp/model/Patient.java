@@ -1,9 +1,14 @@
 package org.demo.testapp.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Version;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -80,5 +85,23 @@ public class Patient {
         this.title = title;
         this.givenName = givenName;
         this.familyName = familyName;
+        this.whenInvited = LocalDateTime.now();
+    }
+
+    public Patient(String title, String givenName, String familyName,
+                   LocalDateTime whenRegistered, LocalDateTime whenInvited,
+                   LocalDateTime whenDischarged) {
+        this.title = title;
+        this.givenName = givenName;
+        this.familyName = familyName;
+
+        if (whenInvited == null) {
+            this.whenInvited = LocalDateTime.now();
+        } else {
+            this.whenInvited = whenInvited;
+        }
+
+        if (whenRegistered != null) { this.whenRegistered = whenRegistered; }
+        if (whenDischarged != null) { this.whenDischarged = whenDischarged; }
     }
 }

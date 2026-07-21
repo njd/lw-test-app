@@ -1,11 +1,10 @@
 package org.demo.testapp.repository;
 
 import org.demo.testapp.model.Patient;
-import org.jspecify.annotations.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
 public interface PatientRepository extends JpaRepository<Patient, Long> {
 
@@ -15,7 +14,7 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
 
     List<Patient> findByWhenDischargedIsNotNull();
 
-    Patient findByEntityId(Long entityId);
+    Optional<Patient> findByEntityId(Long entityId);
 
     // for test support
 
