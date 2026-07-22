@@ -25,6 +25,10 @@ And run the application with:
 mvn spring-boot:run
 ```
 
+To see details for a single patient:
+
+    localhost:8080/patient/{entityId}
+
 ## Tests
 
 Unit tests can be run with

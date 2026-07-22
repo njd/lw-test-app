@@ -1,12 +1,37 @@
-<div style="display: flex; justify-content: center; align-items: center;">
-    <form method="post" action="/login">
-        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-        <label for="username">Username: &nbsp;</label>
-        <input type="text" id="username" name="username"><br/>
+<div th:replace="~{fragments/header}"/>
+<body>
+<div class="patient-show">
 
-        <label for="password">Password:&nbsp;</label>
-        <input type="password" id="password" name="password"><br/>
-        <button type="submit">Login</button>
-        <p th:text="'Thymeleaf is working'"></p>
-    </form>
+    <div>Patient: <span th:text="${patient.entityId}"></span></div>
+
+    <p>EntityId: <span th:text="${patient.entityId}"></span></p>
+    <p>DOB: <span th:text="${patient.dateOfBirth}"></span></p>
+    <p>Given Name: <span th:text="${patient.givenName}"></span></p>
+    <p>Family Name: <span th:text="${patient.familyName}"></span></p>
+    <p>Gender: <span th:text="${patient.gender}"></span></p>
+    <p>NHS Number: <span th:text="${patient.getNhsNumber()}"></span></p>
+    <p>Registered: <span th:if="${patient.whenRegistered}" th:text="${datetime.format(patient.whenRegistered)}"
+                         Registered </span></p>
+    <p>Invited: <span th:if="${patient.whenInvited}" th:text="${datetime.format(patient.whenInvited)}"
+                      Invited </span></p>
+    <p>Discharged: <span th:if="${patient.whenDischarged}" th:text="${datetime.format(patient.whenDischarged)}"
+                         Discharged </span>></p>
+
+
+    <table>
+        <tr><th>Entity</th>
+            <th>Activity</th>
+            <th>Context</th>
+            <th>Module</th>
+            <th>Recorded</th>
+        </tr>
+        <tr th:each="action : ${patient.actions}">
+            <td><span th:text="${action.entityId}" EntityId </span></td>
+            <td><span th:text="${action.activity}" Activity </span></td>
+            <td><span th:text="${action.context}" Context </span></td>
+            <td><span th:text="${action.moduleId}" Module </span></td>
+            <td><span th:text="${datetime.format(action.whenRecorded)}" Recorded </span></td>
+        </tr>
+    </table>
 </div>
+</body>

@@ -1,5 +1,9 @@
 table {
-    width: 100%;
+    width: 80%;
+}
+
+table th {
+    text-align: left;
 }
 
 table tr {

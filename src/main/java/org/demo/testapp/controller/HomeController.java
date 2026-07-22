@@ -1,6 +1,7 @@
 package org.demo.testapp.controller;
 
 import org.demo.testapp.model.Patient;
+import org.demo.testapp.service.PatientNotFoundException;
 import org.demo.testapp.service.PatientService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,8 +54,14 @@ public class HomeController {
 
     @GetMapping("/patient/{id}")
     public String getPatient(@PathVariable Long id, Model model) {
+        model.addAttribute("datetime", DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
         model.addAttribute("id", id);
-        return "show";
+        try {
+            model.addAttribute("patient", patientService.getPatient(id));
+            return "show";
+        } catch (PatientNotFoundException e) {
+            return "error";
+        }
     }
 
 }

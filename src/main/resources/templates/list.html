@@ -10,6 +10,7 @@
             <button type="button" th:onclick="|window.location.href='/discharged'|">Discharged</button>
         </span>
         <div>Patients in list: <span th:text="${patients.size()}"></span></div>
+        <br>    
         <div id="list">
             <table>
                 <thead>
@@ -24,7 +25,7 @@
                 <tbody th:each="patient : ${patients}">
                 <tr>
                 <tr th:if="${patients.empty}">
-                    <td colspan="6">No Patients to show</td>
+                    <td colspan="5">No Patients to show</td>
                 </tr>
                 <tr style="vertical-align: top">
                     <td th:text="${patient.givenName}"></td>
@@ -35,23 +36,7 @@
                               Invited </span></td>
                     <td><span th:if="${patient.whenDischarged}" th:text="${datetime.format(patient.whenDischarged)}"
                               Discharged </span></td>
-                    <td>
-                        <table>
-                            <tr><th>Entity</th>
-                            <th>Activity</th>
-                            <th>Context</th>
-                            <th>Module</th>
-                            <th>Recorded</th>
-                            </tr>
-                            <tr th:each="action : ${patient.actions}">
-                                <td><span th:text="${action.entityId}" EntityId </span></td>
-                                <td><span th:text="${action.activity}" Activity </span></td>
-                                <td><span th:text="${action.context}" Context </span></td>
-                                <td><span th:text="${action.moduleId}" Module </span></td>
-                                <td><span th:text="${datetime.format(action.whenRecorded)}" Recorded </span></td>
-                            </tr>
-                        </table>
-                    </td>
+
                 </tr>
                 </tbody>
             </table>
