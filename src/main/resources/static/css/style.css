@@ -1,0 +1,8 @@
+table {
+    width: 100%;
+}
+
+table tr {
+    text-wrap: nowrap;
+    line-height: 1.5ch;
+}

@@ -1,12 +1,51 @@
-<div style="display: flex; justify-content: center; align-items: center;">
-    <form method="post" action="/login">
-        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-        <label for="username">Username: &nbsp;</label>
-        <input type="text" id="username" name="username"><br/>
+<div th:replace="~{fragments/header}"/>
+<body>
+<div class="patient-list">
 
-        <label for="password">Password:&nbsp;</label>
-        <input type="password" id="password" name="password"><br/>
-        <button type="submit">Login</button>
-        <p th:text="'Thymeleaf is working'"></p>
+    <form>
+        <span id="menubar">
+            <button type="button" th:onclick="|window.location.href='/'|">All</button>
+            <button type="button" th:onclick="|window.location.href='/registered'|">Registered</button>
+            <button type="button" th:onclick="|window.location.href='/invited'|">Invited</button>
+            <button type="button" th:onclick="|window.location.href='/discharged'|">Discharged</button>
+        </span>
+        <div>Patients in list: <span th:text="${patients.size()}"></span></div>
+        <div id="list">
+            <table>
+                <thead>
+                <tr>
+                    <th style="width: 20%">First Name</th>
+                    <th style="width: 20%">Family Name</th>
+                    <th>Registered</th>
+                    <th>Invited</th>
+                    <th>Discharged</th>
+                </tr>
+                </thead>
+                <tbody th:each="patient : ${patients}">
+                <tr>
+                <tr th:if="${patients.empty}">
+                    <td colspan="6">No Patients to show</td>
+                </tr>
+                <tr>
+                    <td th:text="${patient.givenName}"></td>
+                    <td th:text="${patient.familyName}"></td>
+                    <td><span th:if="${patient.whenRegistered}" th:text="${datetime.format(patient.whenRegistered)}"
+                              Registered </span></td>
+                    <td><span th:if="${patient.whenInvited}" th:text="${datetime.format(patient.whenInvited)}"
+                              Invited </span></td>
+                    <td><span th:if="${patient.whenDischarged}" th:text="${datetime.format(patient.whenDischarged)}"
+                              Discharged </span></td>
+                    <td>
+                        <table>
+                            <tr th:each="action : ${patient.actions}">
+                                <td><span th:text="${action.activity}" Activity </span></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </form>
 </div>
+</body>

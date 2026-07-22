@@ -150,4 +150,12 @@ class PatientRepositoryDataJpaIT {
         assertThat(found).isNotNull();
         assertThat(found.getFamilyName()).isEqualTo("Bloggs");
     }
+
+    @Test
+    void findById7() {
+        Patient found = patientRepository.findById(7L).orElse(null);
+        assertThat(found).isNotNull();
+        assertThat(found.getFamilyName()).isEqualTo("Schulist");
+        assertThat(found.getActions().size()).isEqualTo(26);
+    }
 }
